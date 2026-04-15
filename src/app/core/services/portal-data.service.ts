@@ -38,6 +38,7 @@ export interface PortalData {
     savesCount?: number;
     fbLikesCount?: number;
     fbCommentsCount?: number;
+    fbSharesCount?: number;
     instagramPermalink?: string;
     facebookPermalink?: string;
     linkedinPermalink?: string;
