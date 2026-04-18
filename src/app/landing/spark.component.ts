@@ -290,7 +290,7 @@ interface Plan {
     </section>
 
     <!-- COMO FUNCIONA -->
-    <section id="como-funciona" class="spark-steps">
+    <section id="como-funciona" class="spark-steps spark-section-target">
       <div class="container">
         <span class="label">COMO FUNCIONA</span>
         <h2 class="section-title">4 etapas. Zero esforco.</h2>
@@ -414,7 +414,7 @@ interface Plan {
     </section>
 
     <!-- PRICING -->
-    <section id="planos" class="spark-pricing">
+    <section id="planos" class="spark-pricing spark-section-target">
       <div class="container">
         <span class="label">PLANOS</span>
         <h2 class="section-title">Simples e transparente</h2>
