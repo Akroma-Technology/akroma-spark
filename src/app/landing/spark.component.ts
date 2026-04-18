@@ -516,24 +516,40 @@ interface Plan {
       background: linear-gradient(180deg, #080c1a 0%, #0a0a12 50%, #0a0a12 100%);
       display: flex; align-items: center;
     }
+    /* Particles live in the RIGHT half on desktop — mirroring akroma.com.br hero. */
     .spark-hero__canvas {
-      position: absolute; inset: 0;
-      width: 100%; height: 100%;
-      pointer-events: none;
-      z-index: 0;
+      position: absolute; top: 0; right: 0;
+      width: 50%; height: 100%;
+      pointer-events: none; z-index: 0;
+      @media (max-width: 768px) {
+        width: 100%; opacity: 0.35;
+      }
     }
     .spark-hero__glow {
-      position: absolute; top: -200px; left: 50%; transform: translateX(-50%);
+      position: absolute; top: -200px; right: 0;
       width: 800px; height: 800px; border-radius: 50%;
       background: radial-gradient(circle, rgba(251,191,36,0.08) 0%, transparent 70%);
-      pointer-events: none;
-      z-index: 0;
+      pointer-events: none; z-index: 0;
     }
     .spark-hero__glow::after {
       content: ''; position: absolute; inset: 0;
       background: radial-gradient(circle, rgba(77,124,255,0.04) 0%, transparent 60%);
     }
-    .spark-hero__inner { position: relative; text-align: center; max-width: 720px; margin: 0 auto; z-index: 1; }
+    .spark-hero__inner {
+      position: relative; z-index: 1;
+      max-width: 600px;
+      text-align: left;
+    }
+    @media (min-width: 769px) {
+      .spark-hero__inner {
+        /* Keep text in the left half so the sphere fills the right half. */
+        margin-left: max(24px, calc((100vw - 1200px) / 2));
+        margin-right: auto;
+      }
+    }
+    @media (max-width: 768px) {
+      .spark-hero__inner { text-align: center; margin: 0 auto; }
+    }
     .spark-hero__label { margin-bottom: 20px; }
     .spark-hero__title {
       font-size: clamp(36px, 5vw, 64px); font-weight: 900; color: #fff;
@@ -546,9 +562,13 @@ interface Plan {
     }
     .spark-hero__subtitle {
       font-size: 18px; color: #9ca3af; line-height: 1.7; margin-bottom: 36px;
-      max-width: 580px; margin-left: auto; margin-right: auto;
+      max-width: 520px;
     }
-    .spark-hero__ctas { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .spark-hero__ctas { display: flex; gap: 16px; flex-wrap: wrap; }
+    @media (max-width: 768px) {
+      .spark-hero__subtitle { margin-left: auto; margin-right: auto; }
+      .spark-hero__ctas { justify-content: center; }
+    }
     .spark-hero__trial-note {
       margin-top: 16px; font-size: 13px; color: #6b7280;
     }
