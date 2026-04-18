@@ -52,7 +52,10 @@ export class SparkHeroScene {
       canvas.offsetWidth / Math.max(canvas.offsetHeight, 1),
       0.1, 1000
     );
-    this.camera.position.z = 3;
+    // Canvas occupies only the right half of the hero on desktop (aspect ≈ 0.55),
+    // so push the camera further back than the akroma.com.br scene (z=3) to keep
+    // every shape comfortably inside the frame.
+    this.camera.position.z = 4;
 
     this.renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
     this.renderer.setSize(canvas.offsetWidth, canvas.offsetHeight);

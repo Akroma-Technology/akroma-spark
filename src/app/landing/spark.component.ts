@@ -511,10 +511,13 @@ interface Plan {
 
     /* Hero */
     .spark-hero {
-      position: relative; padding: 200px 0 100px; overflow: hidden;
-      min-height: 100vh;
+      position: relative; padding: 96px 0 48px; overflow: hidden;
+      min-height: calc(100vh - 72px);
       background: linear-gradient(180deg, #080c1a 0%, #0a0a12 50%, #0a0a12 100%);
       display: flex; align-items: center;
+    }
+    @media (max-width: 768px) {
+      .spark-hero { padding: 88px 0 40px; min-height: auto; }
     }
     /* Particles live in the RIGHT half on desktop — mirroring akroma.com.br hero. */
     .spark-hero__canvas {
@@ -550,10 +553,10 @@ interface Plan {
     @media (max-width: 768px) {
       .spark-hero__inner { text-align: center; margin: 0 auto; }
     }
-    .spark-hero__label { margin-bottom: 20px; }
+    .spark-hero__label { margin-bottom: 14px; }
     .spark-hero__title {
-      font-size: clamp(36px, 5vw, 64px); font-weight: 900; color: #fff;
-      line-height: 1.05; margin-bottom: 24px;
+      font-size: clamp(32px, 4.2vw, 54px); font-weight: 900; color: #fff;
+      line-height: 1.08; margin-bottom: 18px;
     }
     .spark-hero__title--accent {
       background: linear-gradient(135deg, #fbbf24, #f59e0b, #d97706);
@@ -561,7 +564,7 @@ interface Plan {
       background-clip: text;
     }
     .spark-hero__subtitle {
-      font-size: 18px; color: #9ca3af; line-height: 1.7; margin-bottom: 36px;
+      font-size: 17px; color: #9ca3af; line-height: 1.6; margin-bottom: 24px;
       max-width: 520px;
     }
     .spark-hero__ctas { display: flex; gap: 16px; flex-wrap: wrap; }
@@ -570,7 +573,7 @@ interface Plan {
       .spark-hero__ctas { justify-content: center; }
     }
     .spark-hero__trial-note {
-      margin-top: 16px; font-size: 13px; color: #6b7280;
+      margin-top: 12px; font-size: 12px; color: #6b7280;
     }
 
     /* Buttons */
