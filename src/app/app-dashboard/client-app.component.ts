@@ -768,8 +768,8 @@ export class ClientAppComponent implements OnInit {
       }
     });
 
-    // Load prices (public endpoint, no auth)
-    this.http.get<PlanPrices>(`${environment.apiUrl}/api/v1/plans`).subscribe({
+    // Load Spark pricing (public endpoint, no auth)
+    this.http.get<PlanPrices>(`${environment.apiUrl}/api/v1/plans/spark`).subscribe({
       next: (prices) => { this.planPrices = prices; this.planLoading = false; },
       error: () => {
         this.planPrices = {
