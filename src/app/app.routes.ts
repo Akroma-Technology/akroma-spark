@@ -33,6 +33,10 @@ export const routes: Routes = [
     loadComponent: () => import('./portal/client-portal.component').then(m => m.ClientPortalComponent)
   },
   {
+    path: 'oauth-callback',
+    loadComponent: () => import('./oauth-callback/oauth-callback.component').then(m => m.OAuthCallbackComponent)
+  },
+  {
     path: 'contato',
     loadComponent: () => import('./contato/contato.component').then(m => m.ContatoComponent)
   },

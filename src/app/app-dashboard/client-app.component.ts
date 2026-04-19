@@ -13,6 +13,24 @@ interface ReferralStats {
   referralsToNextMonth: number;
 }
 
+interface ClientProfile {
+  selectedNiche?: string;
+  instagramConnected?: boolean;
+  instagramUsername?: string;
+  instagramTokenExpiresAt?: string;
+}
+
+const NICHE_OPTIONS: { value: string; label: string; emoji: string }[] = [
+  { value: 'fitness',     label: 'Fitness / Academia',    emoji: '💪' },
+  { value: 'tecnologia',  label: 'Tecnologia',            emoji: '💻' },
+  { value: 'gastronomia', label: 'Gastronomia',           emoji: '🍽️' },
+  { value: 'moda',        label: 'Moda',                  emoji: '👗' },
+  { value: 'juridico',    label: 'Juridico',              emoji: '⚖️' },
+  { value: 'imobiliario', label: 'Imobiliario',           emoji: '🏠' },
+  { value: 'educacao',    label: 'Educacao',              emoji: '📚' },
+  { value: 'saude',       label: 'Saude',                 emoji: '🏥' },
+];
+
 interface BillingStatus {
   planTier: string;
   planValue: number;
@@ -112,18 +130,65 @@ type Tab = 'overview' | 'posts' | 'referrals' | 'plan';
           </div>
 
           <div class="app-actions">
-            <div class="app-action app-action--primary">
-              <h3>Conecte seu Instagram</h3>
-              <p>Para a IA publicar, precisamos da autorizacao do Instagram. Isso leva 1 minuto.</p>
-              <button type="button" class="btn btn--spark" (click)="connectInstagram()">
-                Conectar Instagram &rarr;
+            <!-- Instagram card -->
+            <div class="app-action" [class.app-action--primary]="!profile?.instagramConnected"
+                 [class.app-action--connected]="profile?.instagramConnected">
+              <div class="app-action__status" *ngIf="profile?.instagramConnected">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2"
+                     stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+                Conectado
+              </div>
+              <h3>{{ profile?.instagramConnected ? 'Instagram conectado' : 'Conecte seu Instagram' }}</h3>
+              <p *ngIf="!profile?.instagramConnected">
+                Para a IA publicar, precisamos da autorizacao do Instagram. Isso leva 1 minuto.
+              </p>
+              <p *ngIf="profile?.instagramConnected">
+                Conta <strong>&#64;{{ profile?.instagramUsername }}</strong> autorizada. A IA pode publicar automaticamente.
+              </p>
+              <button *ngIf="!profile?.instagramConnected" type="button"
+                      class="btn btn--spark" [disabled]="igConnecting" (click)="connectInstagram()">
+                {{ igConnecting ? 'Redirecionando...' : 'Conectar Instagram →' }}
               </button>
+              <button *ngIf="profile?.instagramConnected" type="button"
+                      class="btn btn--outline" [disabled]="igConnecting" (click)="connectInstagram()">
+                {{ igConnecting ? 'Redirecionando...' : 'Reconectar' }}
+              </button>
+              <p class="app-action__error" *ngIf="igConnectError">{{ igConnectError }}</p>
             </div>
+
+            <!-- Niche card -->
             <div class="app-action">
               <h3>Configure seu nicho</h3>
-              <p>A IA adapta os posts ao seu mercado. Escolha seu nicho para melhores resultados.</p>
-              <button type="button" class="btn btn--outline" disabled>Em breve</button>
+              <p>
+                A IA adapta os posts ao seu mercado.
+                <span *ngIf="profile?.selectedNiche">
+                  Nicho atual: <strong>{{ nicheLabel(profile?.selectedNiche) }}</strong>
+                </span>
+                <span *ngIf="!profile?.selectedNiche">Escolha seu nicho para melhores resultados.</span>
+              </p>
+
+              <!-- Niche picker collapsed view -->
+              <button *ngIf="!showNichePicker" type="button" class="btn btn--outline" (click)="showNichePicker = true">
+                {{ profile?.selectedNiche ? 'Mudar nicho' : 'Escolher nicho' }}
+              </button>
+
+              <!-- Niche grid -->
+              <div class="app-niche-grid" *ngIf="showNichePicker">
+                <button *ngFor="let n of nicheOptions" type="button"
+                        class="app-niche-btn"
+                        [class.app-niche-btn--active]="profile?.selectedNiche === n.value"
+                        [disabled]="nicheLoading"
+                        (click)="selectNiche(n.value)">
+                  <span class="app-niche-emoji">{{ n.emoji }}</span>
+                  <span>{{ n.label }}</span>
+                </button>
+                <div class="app-niche-error" *ngIf="nicheError">{{ nicheError }}</div>
+              </div>
             </div>
+
+            <!-- Referral card -->
             <div class="app-action">
               <h3>Indique e ganhe 1 mes gratis</h3>
               <p>A cada 4 amigos que assinarem um plano pago com seu link, voce ganha 1 mes gratis.</p>
@@ -454,8 +519,35 @@ type Tab = 'overview' | 'posts' | 'referrals' | 'plan';
     .app-action--primary {
       background: rgba(251,191,36,0.05); border-color: rgba(251,191,36,0.2);
     }
+    .app-action--connected {
+      background: rgba(34,197,94,0.04); border-color: rgba(34,197,94,0.2);
+    }
+    .app-action__status {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+      color: #22c55e; text-transform: uppercase; margin-bottom: 8px;
+    }
+    .app-action__status svg { width: 12px; height: 12px; }
+    .app-action__error { font-size: 12px; color: #f87171; margin-top: 8px; }
     .app-action h3 { font-size: 15px; font-weight: 700; color: #fff; margin: 0 0 6px; }
     .app-action p { font-size: 13px; color: #9ca3af; line-height: 1.6; margin: 0 0 16px; }
+
+    .app-niche-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 4px;
+    }
+    .app-niche-btn {
+      display: flex; align-items: center; gap: 8px;
+      padding: 10px 12px; border-radius: 10px; font-size: 13px; font-weight: 500;
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+      color: #d1d5db; cursor: pointer; text-align: left; transition: all 0.15s;
+    }
+    .app-niche-btn:hover:not(:disabled) { border-color: rgba(251,191,36,0.3); color: #fff; }
+    .app-niche-btn--active {
+      border-color: #fbbf24; background: rgba(251,191,36,0.08); color: #fbbf24;
+    }
+    .app-niche-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+    .app-niche-emoji { font-size: 16px; }
+    .app-niche-error { grid-column: 1/-1; font-size: 12px; color: #f87171; }
 
     .app-referral-inline {
       display: flex; align-items: center; gap: 8px;
@@ -675,6 +767,15 @@ export class ClientAppComponent implements OnInit {
   copied = false;
   copiedLink = false;
   referralStats: ReferralStats | null = null;
+  readonly nicheOptions = NICHE_OPTIONS;
+
+  // Profile (instagram + niche)
+  profile: ClientProfile | null = null;
+  showNichePicker = false;
+  nicheLoading = false;
+  nicheError = '';
+  igConnecting = false;
+  igConnectError = '';
 
   // Plan tab state
   billingStatus: BillingStatus | null = null;
@@ -703,6 +804,18 @@ export class ClientAppComponent implements OnInit {
     }
 
     this.showWelcome = this.route.snapshot.queryParamMap.get('welcome') === '1';
+
+    // Seed profile from stored client info (instant, no extra request)
+    this.profile = {
+      selectedNiche: this.client.selectedNiche,
+      instagramConnected: this.client.instagramConnected,
+      instagramUsername: this.client.instagramUsername
+    };
+
+    // After Instagram OAuth callback, refresh profile to get updated token info
+    if (this.route.snapshot.queryParamMap.get('ig') === 'connected') {
+      this.loadProfile();
+    }
   }
 
   get trialActive(): boolean {
@@ -855,8 +968,49 @@ export class ClientAppComponent implements OnInit {
   }
 
   connectInstagram(): void {
-    // Placeholder until OAuth flow is wired up
-    alert('Integracao com Instagram em breve. Em breve liberamos o fluxo de conexao automatica.');
+    if (this.igConnecting) return;
+    this.igConnecting = true;
+    this.igConnectError = '';
+    const headers = this.auth.authHeaders();
+    this.http.get<{ url: string }>(`${environment.apiUrl}/api/v1/client/instagram/oauth-url`, { headers }).subscribe({
+      next: (res) => { window.location.href = res.url; },
+      error: (err) => {
+        this.igConnecting = false;
+        this.igConnectError = err.error?.error || 'Erro ao iniciar conexao com Instagram.';
+      }
+    });
+  }
+
+  loadProfile(): void {
+    const headers = this.auth.authHeaders();
+    this.http.get<ClientProfile>(`${environment.apiUrl}/api/v1/client/me`, { headers }).subscribe({
+      next: (p) => { this.profile = p; },
+      error: () => {}
+    });
+  }
+
+  selectNiche(niche: string): void {
+    if (this.nicheLoading) return;
+    this.nicheLoading = true;
+    this.nicheError = '';
+    const headers = this.auth.authHeaders();
+    this.http.post<{ niche: string }>(`${environment.apiUrl}/api/v1/client/niche`, { niche }, { headers }).subscribe({
+      next: (res) => {
+        this.nicheLoading = false;
+        this.showNichePicker = false;
+        if (this.profile) this.profile = { ...this.profile, selectedNiche: res.niche };
+        if (this.client) this.client = { ...this.client, selectedNiche: res.niche };
+      },
+      error: (err) => {
+        this.nicheLoading = false;
+        this.nicheError = err.error?.error || 'Erro ao salvar nicho. Tente novamente.';
+      }
+    });
+  }
+
+  nicheLabel(value: string | undefined): string {
+    if (!value) return 'Nao configurado';
+    return this.nicheOptions.find(n => n.value === value)?.label ?? value;
   }
 
   logout(): void {

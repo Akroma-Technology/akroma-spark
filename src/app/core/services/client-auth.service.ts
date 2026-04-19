@@ -17,6 +17,9 @@ export interface ClientInfo {
   trialEndsAt?: string;
   trialActive?: boolean;
   active?: boolean;
+  selectedNiche?: string;
+  instagramConnected?: boolean;
+  instagramUsername?: string;
 }
 
 export interface SignupRequest {

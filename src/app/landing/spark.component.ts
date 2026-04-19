@@ -1148,7 +1148,7 @@ export class SparkComponent implements OnInit, AfterViewInit, OnDestroy {
 
   readonly niches = NICHES;
 
-  readonly plans: Plan[] = [
+  plans: Plan[] = [
     {
       id: 'starter', name: 'Starter', monthly: 297, featured: false,
       features: [
@@ -1191,6 +1191,8 @@ export class SparkComponent implements OnInit, AfterViewInit, OnDestroy {
   annualPerMonth(monthly: number): number {
     return Math.round((monthly * 10) / 12);
   }
+
+  private readonly apiUrl = environment.apiUrl;
 
   constructor(@Inject(PLATFORM_ID) private platformId: object) {}
 
@@ -1245,6 +1247,25 @@ export class SparkComponent implements OnInit, AfterViewInit, OnDestroy {
         url: 'https://akroma.com.br',
       },
     });
+
+    // Fetch admin-controlled prices and override defaults (SSR-safe: only in browser)
+    if (isPlatformBrowser(this.platformId)) {
+      this.http.get<{ starter: { monthly: string }; pro: { monthly: string } }>(
+        `${this.apiUrl}/api/v1/plans/spark`
+      ).subscribe({
+        next: (prices) => {
+          const starterIdx = this.plans.findIndex(p => p.id === 'starter');
+          const proIdx     = this.plans.findIndex(p => p.id === 'pro');
+          if (starterIdx >= 0) {
+            this.plans[starterIdx] = { ...this.plans[starterIdx], monthly: +prices.starter.monthly };
+          }
+          if (proIdx >= 0) {
+            this.plans[proIdx] = { ...this.plans[proIdx], monthly: +prices.pro.monthly };
+          }
+        },
+        error: () => {} // Keep hardcoded defaults on any error
+      });
+    }
   }
 
   annual = false;
