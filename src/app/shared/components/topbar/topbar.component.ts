@@ -32,9 +32,12 @@ interface NavLink {
              [class.topbar__link--active]="activeId === l.id">
             {{ l.label }}
           </a>
+        </nav>
+
+        <div class="topbar__actions">
           <a routerLink="/entrar" class="topbar__login">Entrar</a>
           <a routerLink="/cadastro" class="topbar__cta">Teste gratis</a>
-        </nav>
+        </div>
 
         <button type="button"
                 class="topbar__burger"
@@ -88,8 +91,8 @@ interface NavLink {
     .topbar__inner {
       max-width: 1200px; height: 100%; margin: 0 auto;
       padding: 0 24px;
-      display: flex; align-items: center; justify-content: space-between;
-      gap: 32px;
+      display: flex; align-items: center;
+      position: relative;
     }
     .topbar__brand {
       display: inline-flex; align-items: center; gap: 12px;
@@ -112,7 +115,12 @@ interface NavLink {
     }
 
     .topbar__nav {
+      position: absolute; left: 50%; transform: translateX(-50%);
       display: flex; align-items: center; gap: 28px;
+    }
+    .topbar__actions {
+      margin-left: auto;
+      display: flex; align-items: center; gap: 8px;
     }
     .topbar__link {
       position: relative;
@@ -172,6 +180,7 @@ interface NavLink {
 
     @media (max-width: 820px) {
       .topbar__nav { display: none; }
+      .topbar__actions { display: none; }
       .topbar__burger { display: flex; }
     }
 
