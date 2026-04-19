@@ -39,7 +39,7 @@ import { environment } from '../../environments/environment';
         <p class="callback-msg">
           <ng-container *ngIf="status === 'loading'">Aguarde enquanto processamos a autorizacao...</ng-container>
           <ng-container *ngIf="status === 'success'">
-            @{{ instagramUsername }} conectado com sucesso. Redirecionando para o painel...
+            &#64;{{ instagramUsername }} conectado com sucesso. Redirecionando para o painel...
           </ng-container>
           <ng-container *ngIf="status === 'error'">{{ errorMsg }}</ng-container>
           <ng-container *ngIf="status === 'no-session'">
