@@ -1,59 +1,53 @@
-# AkromaSpark
+# Akroma Spark — Frontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.24.
+Interface web do [Akroma Spark](https://spark.akroma.com.br), plataforma SaaS de automação de redes sociais (Instagram, Facebook e LinkedIn), desenvolvida com Angular 19 e hospedada no Cloudflare Pages.
 
-## Development server
+## Visão Geral
 
-To start a local development server, run:
+| Item | Detalhe |
+|------|---------|
+| Framework | Angular 19 (standalone components) |
+| Hospedagem | Cloudflare Pages |
+| Estilização | SCSS com design system próprio |
+| Produto | Akroma Spark — automação de social media |
 
-```bash
-ng serve
-```
+## Funcionalidades Principais
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- Dashboard de automações e agendamentos
+- Gestão de clientes e contas conectadas
+- Configuração de posts e campanhas
+- Relatórios de performance
+- Portal do cliente e planos de assinatura
+- Cobranças e financeiro
+- Calendário de publicações
 
-## Code scaffolding
+## Integração
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Consome a API do **Spark-Lambda-Backend** para todas as operações de dados.
 
-```bash
-ng generate component component-name
-```
+## Pré-requisitos
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+- Node.js 20+
+- npm 10+
 
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+## Instalação
 
 ```bash
-ng test
+npm install
 ```
 
-## Running end-to-end tests
+## Comandos
 
-For end-to-end (e2e) testing, run:
+| Comando | Descrição |
+|---------|-----------|
+| `npm start` | Servidor de desenvolvimento |
+| `npm run build` | Build de produção |
+| `npm test` | Executa testes unitários com Karma |
 
-```bash
-ng e2e
-```
+## Deploy
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+O deploy é feito automaticamente via **Cloudflare Pages** integrado ao repositório GitHub.
 
-## Additional Resources
+## Licença
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Software proprietário de uso exclusivo da Akroma. Veja [LICENSE](LICENSE).
