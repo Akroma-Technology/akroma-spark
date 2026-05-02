@@ -36,7 +36,7 @@ interface NavLink {
 
         <div class="topbar__actions">
           <a routerLink="/entrar" class="topbar__login">Entrar</a>
-          <a routerLink="/cadastro" class="topbar__cta">Teste gratis</a>
+          <a routerLink="/cadastro" class="topbar__cta">Teste grátis</a>
         </div>
 
         <button type="button"
@@ -67,7 +67,7 @@ interface NavLink {
         </a>
         <div class="drawer__divider"></div>
         <a routerLink="/entrar" class="drawer__link drawer__link--muted" (click)="closeDrawer()">Entrar</a>
-        <a routerLink="/cadastro" class="drawer__cta" (click)="closeDrawer()">Teste gratis 7 dias &rarr;</a>
+        <a routerLink="/cadastro" class="drawer__cta" (click)="closeDrawer()">Teste grátis 7 dias &rarr;</a>
       </div>
     </div>
   `,

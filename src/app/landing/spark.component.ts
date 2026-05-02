@@ -355,24 +355,54 @@ interface Plan {
       <div class="container">
         <div class="testimonials-grid">
           <div class="testimonial-card">
-            <p class="testimonial-card__text">"Antes eu gastava 2h por dia criando posts. Com o Spark, acordo e ja esta publicado. Meu engajamento triplicou em 3 meses."</p>
+            <div>
+              <div class="testimonial-card__stars">
+                <span class="testimonial-card__star">★</span><span class="testimonial-card__star">★</span>
+                <span class="testimonial-card__star">★</span><span class="testimonial-card__star">★</span>
+                <span class="testimonial-card__star">★</span>
+              </div>
+              <p class="testimonial-card__text">Antes eu gastava 2h por dia criando posts. Com o Spark, acordo e já está publicado. Meu engajamento triplicou em 3 meses.</p>
+            </div>
             <div class="testimonial-card__author">
-              <strong>Dra. Camila Rocha</strong>
-              <span>Dermatologa — SP</span>
+              <div class="testimonial-card__avatar">C</div>
+              <div class="testimonial-card__author-info">
+                <strong>Dra. Camila Rocha</strong>
+                <span>Dermatologista — SP</span>
+              </div>
             </div>
           </div>
           <div class="testimonial-card">
-            <p class="testimonial-card__text">"Contratei o Spark pra 3 imoveis e em 40 dias recebi 2 leads qualificados direto pelo Instagram. ROI absurdo."</p>
+            <div>
+              <div class="testimonial-card__stars">
+                <span class="testimonial-card__star">★</span><span class="testimonial-card__star">★</span>
+                <span class="testimonial-card__star">★</span><span class="testimonial-card__star">★</span>
+                <span class="testimonial-card__star">★</span>
+              </div>
+              <p class="testimonial-card__text">Contratei o Spark pra 3 imóveis e em 40 dias recebi 2 leads qualificados direto pelo Instagram. ROI absurdo.</p>
+            </div>
             <div class="testimonial-card__author">
-              <strong>Rafael Mendes</strong>
-              <span>Corretor de Imoveis — RJ</span>
+              <div class="testimonial-card__avatar">R</div>
+              <div class="testimonial-card__author-info">
+                <strong>Rafael Mendes</strong>
+                <span>Corretor de Imóveis — RJ</span>
+              </div>
             </div>
           </div>
           <div class="testimonial-card">
-            <p class="testimonial-card__text">"O carrossel que a IA criou sobre leg press viralizou — 12k de alcance num perfil com 800 seguidores. Inacreditavel."</p>
+            <div>
+              <div class="testimonial-card__stars">
+                <span class="testimonial-card__star">★</span><span class="testimonial-card__star">★</span>
+                <span class="testimonial-card__star">★</span><span class="testimonial-card__star">★</span>
+                <span class="testimonial-card__star">★</span>
+              </div>
+              <p class="testimonial-card__text">O carrossel que a IA criou sobre leg press viralizou — 12k de alcance num perfil com 800 seguidores. Inacreditável.</p>
+            </div>
             <div class="testimonial-card__author">
-              <strong>Lucas Ferreira</strong>
-              <span>Personal Trainer — BH</span>
+              <div class="testimonial-card__avatar">L</div>
+              <div class="testimonial-card__author-info">
+                <strong>Lucas Ferreira</strong>
+                <span>Personal Trainer — BH</span>
+              </div>
             </div>
           </div>
         </div>
@@ -795,6 +825,7 @@ interface Plan {
     .proof-item { text-align: center; }
     .proof-item__num {
       display: block; font-size: 36px; font-weight: 900; color: #fbbf24;
+      text-shadow: 0 0 20px rgba(251,191,36,0.45), 0 0 40px rgba(245,158,11,0.2);
     }
     .proof-item__label { font-size: 13px; color: #6b7280; }
 
@@ -804,13 +835,32 @@ interface Plan {
     .testimonial-card {
       padding: 28px; border-radius: 16px;
       background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+      transition: border-color 0.2s, transform 0.2s;
+      display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .testimonial-card:hover {
+      border-color: rgba(251,191,36,0.2); transform: translateY(-2px);
+    }
+    .testimonial-card__stars {
+      display: flex; gap: 3px; margin-bottom: 14px;
+    }
+    .testimonial-card__star {
+      color: #fbbf24; font-size: 14px;
     }
     .testimonial-card__text {
-      font-size: 14px; color: #d1d5db; line-height: 1.7; font-style: italic;
-      margin-bottom: 16px;
+      font-size: 14px; color: #d1d5db; line-height: 1.75; font-style: italic;
+      margin-bottom: 20px; flex-grow: 1;
     }
-    .testimonial-card__author strong { display: block; color: #fff; font-size: 14px; }
-    .testimonial-card__author span { font-size: 12px; color: #6b7280; }
+    .testimonial-card__text::before { content: '\201C'; color: #fbbf24; font-size: 18px; font-style: normal; }
+    .testimonial-card__author { display: flex; align-items: center; gap: 10px; }
+    .testimonial-card__avatar {
+      width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 700; color: #000;
+    }
+    .testimonial-card__author-info strong { display: block; color: #fff; font-size: 14px; font-weight: 600; }
+    .testimonial-card__author-info span { font-size: 12px; color: #6b7280; }
 
     /* Demo */
     .spark-demo {
@@ -1186,7 +1236,7 @@ interface Plan {
       .features-grid { grid-template-columns: 1fr; }
       .pricing-grid { grid-template-columns: 1fr; }
       .spark-hero { padding: 120px 0 80px; }
-      .testimonials-grid { grid-template-columns: 1fr; }
+      .testimonials-grid { grid-template-columns: 1fr; gap: 16px; }
       .demo-box__input-row { flex-direction: column; }
       .proof-grid { gap: 24px; }
     }
