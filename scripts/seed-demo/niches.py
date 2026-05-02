@@ -42,7 +42,7 @@ NICHE_CLIENTS = {
         "image_style": (
             "Estetica cyber-editorial, fundos escuros com syntax highlighting, "
             "tipografia monospace, acentos em cyan/verde neon. Referencia: "
-            "Vercel, Linear, Anthropic design system."
+            "Linear, Anthropic design system."
         ),
         "search_description": (
             "tendencias recentes de inteligencia artificial, LLMs, engenharia de software, "
