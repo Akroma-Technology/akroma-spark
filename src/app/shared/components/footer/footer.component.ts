@@ -30,6 +30,14 @@ import { RouterModule } from '@angular/router';
               <span>CNPJ Verificado</span>
             </div>
           </div>
+
+          <a href="https://www.trustpilot.com/review/akroma.com.br"
+             target="_blank" rel="noopener"
+             class="tp-badge"
+             aria-label="Avalie-nos no Trustpilot">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="#00b67a" aria-hidden="true"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+            <span>Trustpilot</span>
+          </a>
         </div>
 
         <nav class="footer__nav">
@@ -117,6 +125,15 @@ import { RouterModule } from '@angular/router';
     }
     .trust-badge svg { width: 12px; height: 12px; flex-shrink: 0; color: #fbbf24; }
     .trust-badge:hover { border-color: rgba(251,191,36,0.35); color: #fff; }
+    .tp-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 12px; margin-top: 10px;
+      border: 1px solid rgba(0,182,122,0.35); border-radius: 6px;
+      color: #9ca3af; font-size: 11px; font-weight: 600; letter-spacing: 0.03em;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .tp-badge:hover { border-color: rgba(0,182,122,0.7); color: #fff; }
 
     .footer__nav {
       display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;

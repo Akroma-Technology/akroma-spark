@@ -78,14 +78,14 @@ interface NavLink {
     .topbar {
       position: fixed; top: 0; left: 0; right: 0; z-index: 50;
       height: 72px;
-      background: rgba(10, 10, 18, 0.6);
+      background: rgba(5, 8, 16, 0.6);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
       border-bottom: 1px solid rgba(255,255,255,0.05);
       transition: background 0.2s, border-color 0.2s;
     }
     .topbar--scrolled {
-      background: rgba(10, 10, 18, 0.92);
+      background: rgba(5, 8, 16, 0.95);
       border-bottom-color: rgba(251,191,36,0.2);
     }
     .topbar__inner {
@@ -101,7 +101,7 @@ interface NavLink {
     }
     .topbar__brand:hover { opacity: 0.85; }
     .topbar__logo {
-      height: 36px; width: auto;
+      height: 40px; width: auto;
       /* Recolor the dark Akroma icon to Spark yellow (#fbbf24) */
       filter: brightness(0) saturate(100%) invert(76%) sepia(43%) saturate(1100%) hue-rotate(358deg) brightness(101%) contrast(99%);
     }
@@ -200,7 +200,7 @@ interface NavLink {
     .drawer__panel {
       position: absolute; top: 72px; left: 0; right: 0;
       padding: 24px;
-      background: #0a0a12;
+      background: #050810;
       border-bottom: 1px solid rgba(251,191,36,0.15);
       display: flex; flex-direction: column; gap: 4px;
       transform: translateY(-12px);
